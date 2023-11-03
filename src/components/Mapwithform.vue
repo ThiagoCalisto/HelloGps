@@ -1,55 +1,59 @@
 <!-- MapWithForm.vue -->
 <template>
-    <div>
-        <form @submit.prevent="submitForm" class="form-grid">
-            <div class="form-group">
-                <label for="cep">CEP:</label>
-                <input id="cep" type="text" v-model="cep" required />
+    <div class="container">
+        <form @submit.prevent="submitForm">
+            <div class="group-one">
+                <div class="form-group">
+                    <div class="input-with-icon">
+                        <label for="cep">CEP:</label>
+                        <div class="input-with-icon-div">
+                            <input id="cep" type="text" v-model="cep" required />
+                            <button class="search-button" type="submit">
+                                <img class="search-icon" src="../../../img/icons8-search-50.png" alt="Ícone de pesquisa">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-secondary" style="flex: 2;">
+                    <label for="endereco">Endereço:</label>
+                    <input id="endereco" type="text" v-model="endereco" />
+                </div>
+                <div class="form-group-secondary">
+                    <label for="numero">Número:</label>
+                    <input id="numero" type="text" v-model="numero" />
+                </div>
+                <div class="form-group-secondary">
+                    <label for="bairro">Bairro:</label>
+                    <input id="bairro" type="text" v-model="bairro" />
+                </div>
             </div>
-            <div class="form-group">
-                <label for="endereco">Endereço:</label>
-                <input id="endereco" type="text" v-model="endereco" />
+
+            <div class="group-one">
+                <div class="form-group-secondary" style="flex: 2;">
+                    <label for="complemento">Complemento:</label>
+                    <input id="complemento" type="text" v-model="complemento" />
+                </div>
+                <div class="form-group-secondary">
+                    <label for="estado">Estado:</label>
+                    <select id="estado" v-model="estado">
+                        <option value="DF">Distrito Federal</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MG">Minas Gerais</option>
+                        <!-- Adicione mais opções conforme necessário -->
+                    </select>
+                </div>
+                <div class="form-group-secondary">
+                    <label for="municipio">Município:</label>
+                    <select id="municipio" v-model="municipio">
+                        <option value="Brasília">Brasília</option>
+                        <option value="Goiânia">Goiânia</option>
+                        <option value="Belo Horizonte">Belo Horizonte</option>
+                        <!-- Adicione mais opções conforme necessário -->
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="numero">Número:</label>
-                <input id="numero" type="text" v-model="numero" />
-            </div>
-            <div class="form-group">
-                <label for="bairro">Bairro:</label>
-                <input id="bairro" type="text" v-model="bairro" />
-            </div>
-            <div class="form-group">
-                <label for="complemento">Complemento:</label>
-                <input id="complemento" type="text" v-model="complemento" />
-            </div>
-            <div class="form-group">
-                <label for="estado">Estado:</label>
-                <input id="estado" type="text" v-model="estado" />
-            </div>
-            <div class="form-group">
-                <label for="municipio">Município:</label>
-                <input id="municipio" type="text" v-model="municipio" />
-            </div>
-            <button type="submit">Buscar Localização</button>
         </form>
-        <button @click="clearMarker" class="clear-button">
-            <img src="path-to-trash-icon.png" alt="Apagar georrefenciamento" />
-        </button>
-        <button @click="startDrawing" class="clear-button">
-            <img src="path-to-pencil-icon.png" alt="Desenhar" />
-        </button>
-        <button @click="clearDraw" class="clear-button">
-            <img src="path-to-trash-icon.png" alt="Limpar contexto temporário" />
-        </button>
-        <button @click="measureDistance" class="clear-button">
-            <img src="path-to-trash-icon.png" alt="Medir Distancia" />
-        </button>
-        <button @click="addMarkerOnClick" class="clear-button">
-            Georreferenciar
-        </button>
-        <button @click="buscarRua" class="clear-button">
-            Localizar endereço
-        </button>
 
         <div ref="map" class="map"></div>
     </div>
@@ -343,14 +347,73 @@ export default {
 </script>
   
 <style scoped>
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-    margin-bottom: 15px;
+.group-one {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que os elementos quebrem para a próxima linha quando não couberem na largura */
+    margin-bottom: 10px;
+    gap: 20px;
+}
+
+.form-group label {
+    flex: 1;
+    min-width: 100px;
+    /* Largura mínima para o rótulo (ajuste conforme necessário) */
+    text-align: right;
+    /* Alinha o rótulo à direita */
+}
+
+.form-group input {
+    flex: 2;
+    width: 100%;
+    /* Ocupa 100% da largura disponível */
+    height: 30px;
+}
+
+.input-with-icon {
+    text-align: start;
+    flex-direction: column;
+}
+
+.input-with-icon-div {
+    display: flex;
+    align-items: center;
+}
+
+.search-button {
+    background-color: #00bcd4;
+}
+
+.search-icon {
+    width: 22px;
+    height: 22px;
+    filter: invert(100%)
+}
+
+.form-group-secondary {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.form-group-secondary input {
+    width: 100%;
+    /* Ocupa 100% da largura disponível */
+    height: 30px;
+}
+.form-group-secondary select {
+    width: 100%;
+    /* Ocupa 100% da largura disponível */
+    height: 30px;
 }
 
 .map {

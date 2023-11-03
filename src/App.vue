@@ -21,6 +21,10 @@ export default {
 
 <style>
 #app {
+  width: 100%; 
+  max-width: 1600px; 
+  margin: 0 auto; 
+  padding: 20px; 
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
